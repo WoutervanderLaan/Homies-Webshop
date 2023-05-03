@@ -1,14 +1,16 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+/////// Need to change Firebase project to Homies project///////
 const firebaseConfig = {
   apiKey: "AIzaSyC1BBCEL7BaaqAEUzelO0Q2mPc-FOQpHJc",
 
@@ -22,6 +24,7 @@ const firebaseConfig = {
 
   appId: "1:752038421661:web:442e5df03473e74b7c2074",
 };
+//////////////////////////////////////////////////////////////
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -35,8 +38,8 @@ export const auth = getAuth();
 
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+// export const signInWithGoogleRedirect = () =>
+//   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
@@ -80,4 +83,14 @@ export const SignInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const signOutUser = async () => {
+  return await signOut(auth);
+};
+
+export const onAuthStateChangedListener = (callback) => {
+  // if (!callback) return;
+
+  return onAuthStateChanged(auth, callback);
 };
