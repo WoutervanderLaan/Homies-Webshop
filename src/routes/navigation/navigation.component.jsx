@@ -1,12 +1,11 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { ReactComponent as HomiesLogo } from "../../assets/Homies_Logo.svg";
 
-// import { UserContext } from "../../contexts/user.context";
-import { CartContext } from "../../contexts/cart.context";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectDisplayCart } from "../../store/cart/cart.selector";
 
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
@@ -17,8 +16,7 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
-  // const { currentUser } = useContext(UserContext);
-  const { displayCart } = useContext(CartContext);
+  const displayCart = useSelector(selectDisplayCart);
 
   return (
     <Fragment>
